@@ -4,15 +4,22 @@ import FormTextField from "../../components/form/form-field";
 import FormBootStrap from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import * as Yup from 'yup';
+import { useDispatch, useSelector } from 'react-redux'
+import { RootState } from "../../store";
+import { login } from '../../store/Stock/Stock.store';
 
 const Login = () => {
+
+    const dispatch = useDispatch();
+    const stock = useSelector((state: RootState) => state.stock);
+
     const initialValues = {
         login: "",
         password: "",
     };
 
-    const handleSubmit = (values: any) => {
-        alert(JSON.stringify(values));
+    const handleSubmit = () => {
+        dispatch(login());
     };
 
     const SignupSchema = Yup.object().shape({
@@ -23,6 +30,8 @@ const Login = () => {
             .min(3, 'Muito curto!')
             .required('Requerido'),
     });
+
+    console.log(stock)
 
     return (
         <Formik
