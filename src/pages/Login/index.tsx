@@ -6,12 +6,12 @@ import Button from 'react-bootstrap/Button';
 import * as Yup from 'yup';
 import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from "../../store";
-import { login } from '../../store/Stock/Stock.store';
+import { login } from '../../store/Login/Login.store';
 
 const Login = () => {
 
     const dispatch = useDispatch();
-    const stock = useSelector((state: RootState) => state.stock);
+    const stock = useSelector((state: RootState) => state.login);
 
     const initialValues = {
         login: "",
