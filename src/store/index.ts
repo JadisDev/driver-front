@@ -1,9 +1,11 @@
 import { configureStore } from '@reduxjs/toolkit';
-import StockStore from './Stock/Stock.store';
+import StockStoreLogin from './Login/Login.store';
+import stockStoreLoading from './Loading/Loading.store';
 
 const store = configureStore({
     reducer: {
-        stock: StockStore
+        login: StockStoreLogin,
+        loading: stockStoreLoading
     }
 })
 
