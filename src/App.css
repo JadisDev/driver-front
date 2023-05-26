@@ -1,10 +1,18 @@
-.App {
+/*
+ * Baseline styles
+ */
+ body {
+  background: #222;
   text-align: center;
+  padding: 20%;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+h2 {
+  color: #ccc;
+  margin: 0;
+  font: .8em verdana;
+  text-transform: uppercase;
+  letter-spacing: .1em;
 }
 
 @media (prefers-reduced-motion: no-preference) {
