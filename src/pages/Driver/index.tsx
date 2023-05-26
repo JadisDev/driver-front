@@ -5,24 +5,39 @@ import FormBootStrap from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import * as Yup from 'yup';
 
+import api from '../../services/api';
+import FormSaveDriver from "../../services/interface/FormSaveDriverInterface";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "../../store";
+import Loading from "../../components/layout/layout-loading";
+import { active, deactivate } from "../../store/Loading/Loading.store";
+
 const Driver = () => {
 
-    type FormDriver = {
-        name: string,
-        document: string,
-        plate: string,
-        model: string,
-    }
+    const dispatch = useDispatch();
+    const stock = useSelector((state: RootState) => state.loading);
 
     const initialValues = {
-        name: "",
-        document: "",
-        plate: "",
-        model: "",
+        name: "111",
+        document: "2222",
+        plate: "3333",
+        model: "4444",
     };
 
-    const handleSubmit = (value:FormDriver) => {
-        alert(JSON.stringify(value));
+    async function postDriver(params: FormSaveDriver) {
+        try {
+            dispatch(active());
+            const response = await api.post('/driver', params);
+            console.log(response.data);
+            dispatch(deactivate());
+        } catch (error) {
+            console.error(error);
+            dispatch(deactivate());
+        }
+    }
+
+    const handleSubmit = async (params: FormSaveDriver) => {
+        await postDriver(params);
     };
 
     const SignupSchema = Yup.object().shape({
@@ -41,52 +56,59 @@ const Driver = () => {
     });
 
     return (
-        <Formik
-            initialValues={initialValues}
-            onSubmit={handleSubmit}
-            validationSchema={SignupSchema}
-        >
-            <Form>
-                <FormBootStrap.Group className="mb-3">
-                    <FormTextField
-                        name="name"
-                        label="Nome"
-                        type="text"
-                    />
-                </FormBootStrap.Group>
+        <>
+            <div>
+                {stock.loading && <Loading message="Aguarde..." />}
+            </div>
 
-                <FormBootStrap.Group className="mb-3">
-                    <FormTextField
-                        name="document"
-                        label="Documento"
-                        type="text"
-                    />
-                </FormBootStrap.Group>
+            <Formik
+                initialValues={initialValues}
+                onSubmit={handleSubmit}
+                validationSchema={SignupSchema}
+            >
+                <Form>
+                    <FormBootStrap.Group className="mb-3">
+                        <FormTextField
+                            name="name"
+                            label="Nome"
+                            type="text"
+                        />
+                    </FormBootStrap.Group>
 
-                <FormBootStrap.Group className="mb-3">
-                    <FormTextField
-                        name="plate"
-                        label="Placa do veículo"
-                        type="text"
-                    />
-                </FormBootStrap.Group>
+                    <FormBootStrap.Group className="mb-3">
+                        <FormTextField
+                            name="document"
+                            label="Documento"
+                            type="text"
+                        />
+                    </FormBootStrap.Group>
 
-                <FormBootStrap.Group className="mb-3">
-                    <FormTextField
-                        name="model"
-                        label="Modelo do veículo"
-                        type="text"
-                    />
-                </FormBootStrap.Group>
+                    <FormBootStrap.Group className="mb-3">
+                        <FormTextField
+                            name="plate"
+                            label="Placa do veículo"
+                            type="text"
+                        />
+                    </FormBootStrap.Group>
 
-                <Button
-                    variant="primary"
-                    type="submit"
-                >
-                    Cadastrar novo motorista/veículo
-                </Button>
-            </Form>
-        </Formik>
+                    <FormBootStrap.Group className="mb-3">
+                        <FormTextField
+                            name="model"
+                            label="Modelo do veículo"
+                            type="text"
+                        />
+                    </FormBootStrap.Group>
+
+                    <Button
+                        disabled={stock.loading}
+                        variant="primary"
+                        type="submit"
+                    >
+                        Cadastrar novo motorista/veículo
+                    </Button>
+                </Form>
+            </Formik>
+        </>
     );
 };
 
