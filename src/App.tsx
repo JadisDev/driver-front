@@ -1,11 +1,13 @@
 import React from 'react';
 
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import Login from './pages/Login';
 import { Provider } from "react-redux";
 
 import store from './store';
-import Driver from './pages/Driver';
+
+import SaveDriver from './pages/Driver/save-driver';
+import ListDrivers from './pages/Driver/list-driver';
+import Login from './pages/Login';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 
@@ -17,8 +19,9 @@ function App() {
         <BrowserRouter>
           <Routes>
             <Route>
+              <Route path="/drivers" element={<ListDrivers />} />
               <Route path="/login" element={<Login />} />
-              <Route path="/driver" element={<Driver />} />
+              <Route path="/driver" element={<SaveDriver />} />
             </Route>
           </Routes>
         </BrowserRouter>
