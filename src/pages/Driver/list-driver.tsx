@@ -14,16 +14,16 @@ import FormTextField from "../../components/form/form-field";
 import Button from 'react-bootstrap/Button';
 import { confirmAlert } from 'react-confirm-alert';
 import 'react-confirm-alert/src/react-confirm-alert.css';
+import { useNavigate } from 'react-router-dom';
 
-const handleButtonClickUpdate = (row: TableDriversInterface) => {
-    console.log(row);
-};
 
 function ListDrivers(): JSX.Element {
 
     const initialValues = {
         search: "",
     };
+
+    const navigate = useNavigate();
 
     async function deleteDriver(driverId: number) {
         try {
@@ -35,6 +35,10 @@ function ListDrivers(): JSX.Element {
             setIsLoading(false);
             console.error(error);
         }
+    }
+
+    const handleButtonClickUpdate = (row: TableDriversInterface) => {
+        navigate('/driver', { state: { driver: row } });
     }
 
     const handleButtonClickDelete = (row: TableDriversInterface) => {
