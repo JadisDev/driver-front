@@ -15,6 +15,8 @@ import Button from 'react-bootstrap/Button';
 import { confirmAlert } from 'react-confirm-alert';
 import 'react-confirm-alert/src/react-confirm-alert.css';
 import { useNavigate } from 'react-router-dom';
+import AlertAppInterfaceInterface from '../../services/interface/alert/AlertAppInterfaceInterface';
+import AlertApp from '../../components/alert/AlertApp';
 
 
 function ListDrivers(): JSX.Element {
@@ -52,7 +54,7 @@ function ListDrivers(): JSX.Element {
                 },
                 {
                     label: 'Voltar',
-                    onClick: () => {}
+                    onClick: () => { }
                 }
             ]
         });
@@ -108,7 +110,10 @@ function ListDrivers(): JSX.Element {
             setIsLoading(false);
         } catch (error) {
             setIsLoading(false);
-            console.error(error);
+            handleAlertApp({
+                message: 'Erro ao filtrar motoristas',
+                variant: 'danger'
+            });
         }
     }
 
@@ -137,7 +142,10 @@ function ListDrivers(): JSX.Element {
             setIsLoading(false);
         } catch (error) {
             setIsLoading(false);
-            console.error(error);
+            handleAlertApp({
+                message: 'Erro ao consultar motoristas',
+                variant: 'danger'
+            });
         }
     }
 
@@ -148,8 +156,26 @@ function ListDrivers(): JSX.Element {
         loadDrives();
     }, []);
 
+    const [showAlertApp, setShowAlertApp] = useState<boolean>(false);
+    const [alertApp, setAlertApp] = useState<AlertAppInterfaceInterface>({
+        message: '',
+        variant: 'dark'
+    });
+
+    const handleAlertApp = (props: AlertAppInterfaceInterface) => {
+        setShowAlertApp(true);
+        setAlertApp(props);
+    }
+
     return (
         <>
+            {showAlertApp &&
+                <AlertApp
+                    message={alertApp.message}
+                    variant={alertApp.variant}
+                />
+            }
+
             <Formik
                 initialValues={initialValues}
                 onSubmit={handleSubmit}
@@ -172,7 +198,7 @@ function ListDrivers(): JSX.Element {
                             Pesquisar
                         </Button>
                         <Button
-                            style={{marginLeft: '5px'}}
+                            style={{ marginLeft: '5px' }}
                             disabled={isLoading}
                             variant="secondary"
                             type="button"

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Formik, Form } from "formik";
 import FormTextField from "../../components/form/form-field";
 import FormBootStrap from 'react-bootstrap/Form';
@@ -14,6 +14,8 @@ import { active, deactivate } from "../../store/Loading/Loading.store";
 
 import { useLocation } from 'react-router-dom';
 import TableDriversInterface from "../../services/interface/Table/TableDriversInterface";
+import AlertApp from "../../components/alert/AlertApp";
+import AlertAppInterfaceInterface from "../../services/interface/alert/AlertAppInterfaceInterface";
 
 const SaveDriver = () => {
 
@@ -23,6 +25,16 @@ const SaveDriver = () => {
     const location = useLocation();
     const driver: TableDriversInterface = location.state && location.state.driver;
 
+    const [showAlertApp, setShowAlertApp] = useState<boolean>(false);
+    const [alertApp, setAlertApp] = useState<AlertAppInterfaceInterface>({
+        message: '',
+        variant: 'dark'
+    });
+
+    const handleAlertApp = (props: AlertAppInterfaceInterface) => {
+        setShowAlertApp(true);
+        setAlertApp(props);
+    }
 
     const initialValues = {
         id: driver ? driver.id : null,
@@ -37,21 +49,34 @@ const SaveDriver = () => {
             dispatch(active());
             await api.post('/driver', params);
             dispatch(deactivate());
+            handleAlertApp({
+                message: 'Salvo com sucesso!',
+                variant: 'success'
+            });
         } catch (error) {
-            console.error(error);
             dispatch(deactivate());
+            handleAlertApp({
+                message: 'Erro ao cadastrar um motorista',
+                variant: 'danger'
+            });
         }
     }
 
     async function updateDriver(id: number, params: FormSaveDriverInterface) {
         try {
             dispatch(active());
-            const response = await api.patch(`/driver/${id}`, { name: params.name, document: params.document });
-            console.log(response);
+            await api.patch(`/driver/${id}`, { name: params.name, document: params.document });
             dispatch(deactivate());
+            handleAlertApp({
+                message: 'Atualizado com sucesso!',
+                variant: 'success'
+            });
         } catch (error) {
-            console.error(error);
             dispatch(deactivate());
+            handleAlertApp({
+                message: 'Erro ao atualizar',
+                variant: 'danger'
+            });
         }
     }
 
@@ -82,6 +107,13 @@ const SaveDriver = () => {
             <div>
                 {stock.loading && <Loading message="Aguarde..." />}
             </div>
+
+            {showAlertApp &&
+                <AlertApp
+                    message={alertApp.message}
+                    variant={alertApp.variant}
+                />
+            }
 
             <Formik
                 initialValues={initialValues}
