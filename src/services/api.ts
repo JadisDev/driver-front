@@ -24,7 +24,10 @@ class Api {
         return this.instance.post<T>(url, data, config);
     }
 
-    // Métodos adicionais para outras operações HTTP (post, put, delete, etc.)
+    public async delete<T>(url: string, config?: AxiosRequestConfig): Promise<AxiosResponse<T>> {
+        return this.instance.delete<T>(url, config);
+    }
+
 }
 
 const api = new Api();
