@@ -172,6 +172,7 @@ function ListDrivers(): JSX.Element {
                             Pesquisar
                         </Button>
                         <Button
+                            style={{marginLeft: '5px'}}
                             disabled={isLoading}
                             variant="secondary"
                             type="button"
