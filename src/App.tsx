@@ -20,7 +20,7 @@ function App() {
           <Routes>
             <Route>
               <Route path="/drivers" element={<ListDrivers />} />
-              <Route path="/login" element={<Login />} />
+              <Route path="/" element={<Login />} />
               <Route path="/driver" element={<SaveDriver />} />
             </Route>
           </Routes>

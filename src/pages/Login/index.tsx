@@ -5,13 +5,13 @@ import FormBootStrap from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import * as Yup from 'yup';
 import { useDispatch, useSelector } from 'react-redux'
-import { RootState } from "../../store";
 import { login } from '../../store/Login/Login.store';
+import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
 
     const dispatch = useDispatch();
-    const stock = useSelector((state: RootState) => state.login);
+    const navigate = useNavigate();
 
     const initialValues = {
         login: "",
@@ -20,6 +20,7 @@ const Login = () => {
 
     const handleSubmit = () => {
         dispatch(login());
+        navigate('/drivers');
     };
 
     const SignupSchema = Yup.object().shape({
@@ -30,8 +31,6 @@ const Login = () => {
             .min(3, 'Muito curto!')
             .required('Requerido'),
     });
-
-    console.log(stock)
 
     return (
         <Formik
