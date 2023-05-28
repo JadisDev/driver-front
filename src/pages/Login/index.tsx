@@ -4,13 +4,10 @@ import FormTextField from "../../components/form/form-field";
 import FormBootStrap from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import * as Yup from 'yup';
-import { useDispatch, useSelector } from 'react-redux'
-import { login } from '../../store/Login/Login.store';
 import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
 
-    const dispatch = useDispatch();
     const navigate = useNavigate();
 
     const initialValues = {
@@ -19,7 +16,7 @@ const Login = () => {
     };
 
     const handleSubmit = () => {
-        dispatch(login());
+        localStorage.setItem('login', '1');
         navigate('/drivers');
     };
 
