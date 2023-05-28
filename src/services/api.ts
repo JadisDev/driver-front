@@ -24,10 +24,13 @@ class Api {
         return this.instance.post<T>(url, data, config);
     }
 
+    public async patch<T>(url: string, data?: any, config?: AxiosRequestConfig): Promise<AxiosResponse<T>> {
+        return this.instance.patch<T>(url, data, config);
+    }
+
     public async delete<T>(url: string, config?: AxiosRequestConfig): Promise<AxiosResponse<T>> {
         return this.instance.delete<T>(url, config);
     }
-
 }
 
 const api = new Api();
