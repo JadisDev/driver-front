@@ -12,27 +12,89 @@ import { Formik, Form } from "formik";
 import FormBootStrap from 'react-bootstrap/Form';
 import FormTextField from "../../components/form/form-field";
 import Button from 'react-bootstrap/Button';
+import { confirmAlert } from 'react-confirm-alert';
+import 'react-confirm-alert/src/react-confirm-alert.css';
 
-const columns: TableColumn<TableDriversInterface>[] = [
-    {
-        name: 'Motorista',
-        selector: row => row.name || '',
-    },
-    {
-        name: 'Documento',
-        selector: row => row.document || '',
-    },
-    {
-        name: 'Placa',
-        selector: row => row.vehicle ? row.vehicle.plate : '',
-    },
-];
+const handleButtonClickUpdate = (row: TableDriversInterface) => {
+    console.log(row);
+};
 
 function ListDrivers(): JSX.Element {
 
     const initialValues = {
         search: "",
     };
+
+    async function deleteDriver(driverId: number) {
+        try {
+            setIsLoading(true);
+            await api.delete(`/driver/${driverId}`);
+            getDrivers();
+            setIsLoading(false);
+        } catch (error) {
+            setIsLoading(false);
+            console.error(error);
+        }
+    }
+
+    const handleButtonClickDelete = (row: TableDriversInterface) => {
+        confirmAlert({
+            title: 'Deseja continuar?',
+            message: 'Ação não pode ser desfeita.',
+            buttons: [
+                {
+                    label: 'Confirmo!',
+                    onClick: () => deleteDriver(row.id)
+                },
+                {
+                    label: 'Voltar',
+                    onClick: () => {}
+                }
+            ]
+        });
+    };
+
+    const columns: TableColumn<TableDriversInterface>[] = [
+        {
+            name: 'Motorista',
+            selector: row => row.name || '',
+        },
+        {
+            name: 'Documento',
+            selector: row => row.document || '',
+        },
+        {
+            name: 'Placa',
+            selector: row => row.vehicle ? row.vehicle.plate : '',
+        },
+        {
+            name: 'Deletar',
+            cell: (row) =>
+                <Button
+                    onClick={() => handleButtonClickDelete(row)}
+                    variant="danger"
+                >
+                    Deletar
+                </Button>,
+            ignoreRowClick: true,
+            allowOverflow: true,
+            button: true,
+        },
+        {
+            name: 'Editar',
+            cell: (row) =>
+                <Button
+                    onClick={() => handleButtonClickUpdate(row)}
+                    variant="warning"
+                >
+                    Editar
+                </Button>,
+            ignoreRowClick: true,
+            allowOverflow: true,
+            button: true,
+        }
+    ];
+
 
     async function searchDriverByNameDocumentPlate(params: FormSearchDriverInterface) {
         try {
