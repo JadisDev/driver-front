@@ -1,0 +1,32 @@
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    background-color: #222;
+    padding: 1em;
+    text-align: end;
+    margin-bottom: 20px;
+}
+
+.list {
+    display: flex;
+    list-style: none;
+    align-items: center;
+}
+
+.item {
+    margin-right: 1em;
+}
+
+.item a {
+    color: white;
+    text-decoration: none;
+}
+
+.item a:houver {
+    color: chartreuse;
+    text-decoration: none;
+}
+
+.text-default {
+    color: white
+}
