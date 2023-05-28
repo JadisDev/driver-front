@@ -4,6 +4,7 @@ interface TableDriversInterface {
     document: string;
     vehicle: {
         plate: string;
+        model: string;
     }
 }
 
