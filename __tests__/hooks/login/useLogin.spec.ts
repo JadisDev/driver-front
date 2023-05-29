@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import * as Yup from 'yup';
 
-import useLogin from '../../src/hooks/login/useLogin';
+import useLogin from '../../../src/hooks/login/useLogin';
 
 const mockedUsedNavigate = jest.fn();
 
