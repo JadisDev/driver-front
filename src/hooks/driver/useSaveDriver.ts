@@ -21,7 +21,7 @@ const useSaveDriver = () => {
     });
 
     const location = useLocation();
-    const driver: TableDriversInterface = location.state && location.state.driver;
+    const driver: TableDriversInterface | null = location.state && location.state.driver;
 
     const initialValues = {
         id: driver ? driver.id : null,
@@ -74,7 +74,7 @@ const useSaveDriver = () => {
 
     const handleSubmit = async (params: FormSaveDriverInterface) => {
         if (driver && params.id) {
-            return updateDriver(params.id, params);
+            return await updateDriver(params.id, params);
         }
         await postDriver(params);
     };
