@@ -1,46 +1,88 @@
-# Getting Started with Create React App
+#  Sistema de cadastro de motoristas
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Sistema para gerenciar os motorista e seus veículos.
 
-## Available Scripts
+## 🚀 Começando
 
-In the project directory, you can run:
+Essas instruções permitirão que você obtenha uma cópia do projeto em operação na sua máquina local.
 
-### `npm start`
+### 📋 Pré-requisitos
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+De que coisas você precisa para instalar o software e como instalá-lo?
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+* [Docker](https://www.docker.com/)
+* [Docker compose](https://docs.docker.com/compose/install/)
+* [Git](https://git-scm.com/)
+* [Repositório](https://github.com/JadisDev/driver-front)
 
-### `npm test`
+### 🔧 Instalação
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Uma série de exemplos passo-a-passo que informam o que você deve executar para ter um ambiente de desenvolvimento em execução.
 
-### `npm run build`
+Va até onde deseja instalar o projeto e baixe o código fonte
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+```
+git clone git@github.com:JadisDev/driver-front.git
+```
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+Entre no diretório:
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+```
+cd driver-front
+```
 
-### `npm run eject`
+Construa as imagens do sistema com comando:
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+```
+docker-compose build
+```
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+Subir as imagens do sistema com comando:
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+```
+docker-compose up
+```
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+Acesse o seu navegador:
 
-## Learn More
+```
+http://localhost:3000/
+```
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+![image](https://github.com/JadisDev/driver-front/assets/20782995/fa9102ea-3ee3-4d58-9a24-2dca9fee1d68)
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## ⚙️ Executando os testes
+
+Os testes unitários são uma prática de desenvolvimento de software em que pequenas partes de código, chamadas unidades, são testadas de forma isolada.
+
+O sistema tem alguns testes unitários. Para executar e ver a cobertura de teste rode o comando de dentro do container driver-front-app
+
+Execute o comando, exemplo:
+
+```
+docker exec -it 8bdeef82353c bash
+```
+Depois:
+
+```
+yarn test
+```
+Saída:
+
+![image](https://github.com/JadisDev/driver-front/assets/20782995/45fc1414-f1a8-478f-9deb-1ed59d613ec7)
+
+## 🛠️ Construído com
+
+Ferramentas usadas no projeto
+
+* [Reactjs](https://react.dev/) - Lib
+* [Bootstrap react](https://react-bootstrap.github.io/getting-started/introduction) - Lib
+* [Jest](https://jestjs.io/docs/tutorial-react) - Usada para testar
+
+## ✒️ Autor
+
+* **Desenvolvedor responsável** [Jadis Jale](https://github.com/JadisDev)
+
+
+---
+⌨️ com ❤️ por [Jadis Jale](https://github.com/JadisDev) 😊
