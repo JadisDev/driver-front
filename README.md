@@ -14,6 +14,7 @@ De que coisas você precisa para instalar o software e como instalá-lo?
 * [Docker compose](https://docs.docker.com/compose/install/)
 * [Git](https://git-scm.com/)
 * [Repositório](https://github.com/JadisDev/driver-front)
+* [Repositório Back](https://github.com/JadisDev/driver-back)
 
 ### 🔧 Instalação
 
@@ -49,7 +50,15 @@ Acesse o seu navegador:
 http://localhost:3000/
 ```
 
-![image](https://github.com/JadisDev/driver-front/assets/20782995/fa9102ea-3ee3-4d58-9a24-2dca9fee1d68)
+![image](https://github.com/JadisDev/driver-front/assets/20782995/9eade289-4ff9-404c-8aed-aaefb11c01cb)
+
+Caso altere as rotas do back, basta alterar o arquivo localizado aqui:
+
+```
+src/services/api.ts
+```
+Altera o valor desse parâmetro:
+![image](https://github.com/JadisDev/driver-front/assets/20782995/e054bee0-f03c-42f0-a5d7-e72cbd948e16)
 
 ## ⚙️ Executando os testes
 
